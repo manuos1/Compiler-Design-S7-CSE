@@ -22,68 +22,10 @@ char *comparisonOp[] = {"==", "<=", ">=", "!=", ">", "<"};
 int id=0;
 char ident[20][10];
 
-int getOperator(char *op) {
-	int i;
-	
-	for(i=0; i<n_arithmeticOp; i++) {
-		// printf("Comparing: %s and %s\n", op, arithmeticOp[i]);
-		if(strcmp(arithmeticOp[i], op) == 0)
-			return 1;
-	}
-
-	for(i=0; i<n_logicalOp; i++) {
-		// printf("Comparing: %s and %s\n", op,logicalOp[i]);
-		if(strcmp(logicalOp[i], op) == 0)
-			return 2;
-	}
-
-	for(i=0; i<n_assignmentOp; i++) {
-		// printf("Comparing: %s and %s\n", op,assignmentOp[i]);
-		if(strcmp(assignmentOp[i], op) == 0)
-			return 3;
-	}
-
-	for(i=0; i<n_comparisonOp; i++) {
-		// printf("Comparing: %s and %s\n", op,comparisonOp[i]);
-		if(strcmp(comparisonOp[i], op) == 0)
-			return 4;
-	}
-
-	return 0;
-}
-
-int isOperator(char op) {
-	int i;
-	for (i=0;i<n_operators;i++) {
-		if(operators[i] == op)
-			return 1;
-	}
-	return 0;
-}
-
-int isKeyword(char *word)
-{
-	int j;
-	for(j=0;j<n_keywords;j++)
-	{
-		if(strcmp(keywords[j],word)==0)
-			return 1;
-	}
-	return 0;
-}
-
-int isIdentifier(char *word)
-{
-	int j;
-	for(j=0;j<id;j++)
-	{
-		// printf("Comparing: %s and %s\n",ident[j],word);
-		if(strcmp(ident[j],word)==0)
-			return j+1;
-	}
-	strcpy(ident[id++],word);
-	return id;
-}
+int getOperator(char*);
+int isOperator(char);
+int isKeyword(char*);
+int isIdentifier(char*);
 
 
 void main()
@@ -105,7 +47,7 @@ void main()
 		
 		if (isspace(ch) || ch=='(' || ch==')' || ch=='{' || ch=='}' || ch==',' || ch==';')
 			continue;
-		else if(isalpha(ch) || ch=='_')
+		else if(isalpha(ch) || ch=='_') // Keywords and Identifiers
 		{
 			while(isalnum(ch) || ch=='_')
 			{
@@ -132,7 +74,7 @@ void main()
 			bzero(word, sizeof(word));
 			w=0;			
 		}
-		else if(ch=='"')
+		else if(ch=='"') // Strings
 		{
 			ch=getc(input_file);
 			while(ch != '"')
@@ -143,14 +85,14 @@ void main()
 			// printf("String Constant: %s\n",characters);
 			fprintf(output_file, "<\"%s\"\tstring constant >\n",characters);
 		}
-		else if(ch=='\'')
+		else if(ch=='\'') // Characters
 		{
 			ch=getc(input_file);
 			// printf("Character Constant: %c\n",ch);
 			fprintf(output_file, "<'%c'\tcharacter constant >\n", ch);
 			getc(input_file);
 		}
-		else if(isdigit(ch))
+		else if(isdigit(ch)) // Numbers
 		{
 			while(isdigit(ch) || ch == '.')
 			{
@@ -224,4 +166,69 @@ void main()
 	fclose(input_file);
 	fclose(output_file);
 	
+}
+
+
+
+int getOperator(char *op) {
+	int i;
+	
+	for(i=0; i<n_arithmeticOp; i++) {
+		// printf("Comparing: %s and %s\n", op, arithmeticOp[i]);
+		if(strcmp(arithmeticOp[i], op) == 0)
+			return 1;
+	}
+
+	for(i=0; i<n_logicalOp; i++) {
+		// printf("Comparing: %s and %s\n", op,logicalOp[i]);
+		if(strcmp(logicalOp[i], op) == 0)
+			return 2;
+	}
+
+	for(i=0; i<n_assignmentOp; i++) {
+		// printf("Comparing: %s and %s\n", op,assignmentOp[i]);
+		if(strcmp(assignmentOp[i], op) == 0)
+			return 3;
+	}
+
+	for(i=0; i<n_comparisonOp; i++) {
+		// printf("Comparing: %s and %s\n", op,comparisonOp[i]);
+		if(strcmp(comparisonOp[i], op) == 0)
+			return 4;
+	}
+
+	return 0;
+}
+
+int isOperator(char op) {
+	int i;
+	for (i=0;i<n_operators;i++) {
+		if(operators[i] == op)
+			return 1;
+	}
+	return 0;
+}
+
+int isKeyword(char *word)
+{
+	int j;
+	for(j=0;j<n_keywords;j++)
+	{
+		if(strcmp(keywords[j],word)==0)
+			return 1;
+	}
+	return 0;
+}
+
+int isIdentifier(char *word)
+{
+	int j;
+	for(j=0;j<id;j++)
+	{
+		// printf("Comparing: %s and %s\n",ident[j],word);
+		if(strcmp(ident[j],word)==0)
+			return j+1;
+	}
+	strcpy(ident[id++],word);
+	return id-1;
 }
