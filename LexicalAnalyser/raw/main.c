@@ -3,22 +3,21 @@
 #include<stdlib.h>
 #include<ctype.h>
 
-#define NO_OF_KEYWORDS 10
-#define NO_OF_OPERATORS 10
 
-#define nof_arithmetic_op 7
-#define nof_logical_op 3
-#define nof_assignment_op 7
-#define nof_comparison_op 6
+#define n_operators 10
+#define n_keywords 10
+#define n_arithmeticOp 7
+#define n_logicalOp 3
+#define n_assignmentOp 7
+#define n_comparisonOp 6
 
-char keywords[NO_OF_KEYWORDS][10] = {"void", "int", "float", "char", "return", "if", "for", "while", "do", "switch"};
+char operators[] = {'=', '+', '*', '/', '%', '<', '>', '!', '&', '|'};
+char *keywords[] = {"void", "int", "float", "char", "return", "if", "for", "while", "do", "switch"};
+char *arithmeticOp[] = {"+", "-", "*", "/", "%", "++", "--"};
+char *logicalOp[] = {"&&", "||", "!"};
+char *assignmentOp[] = {"=", "+=", "-=", "*=", "/=", "%=", "&="};
+char *comparisonOp[] = {"==", "<=", ">=", "!=", ">", "<"};
 
-char operators[NO_OF_OPERATORS] = {'=', '+', '*', '/', '%', '<', '>', '!', '&', '|'};
-
-char arithmeticOp[nof_arithmetic_op][2] = {"+", "-", "*", "/", "%", "++", "--"};
-char logicalOp[nof_logical_op][2] = {"&&", "||", "!"};
-char assignmentOp[nof_assignment_op][2]={"=", "+=", "-=", "*=", "/=", "%=", "&="};
-char comparisonOp[nof_comparison_op][2]={"==", "<=", ">=", "!=", ">", "<"};
 
 int id=0;
 char ident[20][10];
@@ -26,25 +25,25 @@ char ident[20][10];
 int getOperator(char *op) {
 	int i;
 	
-	for(i=0; i<nof_arithmetic_op; i++) {
-		// printf("Comparing: %s and %s\n", op,arithmeticOp[i]);
+	for(i=0; i<n_arithmeticOp; i++) {
+		// printf("Comparing: %s and %s\n", op, arithmeticOp[i]);
 		if(strcmp(arithmeticOp[i], op) == 0)
 			return 1;
 	}
 
-	for(i=0; i<nof_logical_op; i++) {
+	for(i=0; i<n_logicalOp; i++) {
 		// printf("Comparing: %s and %s\n", op,logicalOp[i]);
 		if(strcmp(logicalOp[i], op) == 0)
 			return 2;
 	}
 
-	for(i=0; i<nof_assignment_op; i++) {
+	for(i=0; i<n_assignmentOp; i++) {
 		// printf("Comparing: %s and %s\n", op,assignmentOp[i]);
 		if(strcmp(assignmentOp[i], op) == 0)
 			return 3;
 	}
 
-	for(i=0; i<nof_comparison_op; i++) {
+	for(i=0; i<n_comparisonOp; i++) {
 		// printf("Comparing: %s and %s\n", op,comparisonOp[i]);
 		if(strcmp(comparisonOp[i], op) == 0)
 			return 4;
@@ -55,7 +54,7 @@ int getOperator(char *op) {
 
 int isOperator(char op) {
 	int i;
-	for (i=0;i<NO_OF_OPERATORS;i++) {
+	for (i=0;i<n_operators;i++) {
 		if(operators[i] == op)
 			return 1;
 	}
@@ -65,7 +64,7 @@ int isOperator(char op) {
 int isKeyword(char *word)
 {
 	int j;
-	for(j=0;j<NO_OF_KEYWORDS;j++)
+	for(j=0;j<n_keywords;j++)
 	{
 		if(strcmp(keywords[j],word)==0)
 			return 1;

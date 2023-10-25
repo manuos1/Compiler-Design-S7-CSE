@@ -17,7 +17,7 @@
 <=	assignment operator >
 <1	integer constant >
 <a	identifier	2 >
-<>=	unidentified operator >
+<>=	comparison operator >
 <b	identifier	3 >
 <printf	identifier	6 >
 <"Result: %d"	string constant >
