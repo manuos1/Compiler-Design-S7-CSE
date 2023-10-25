@@ -1,0 +1,24 @@
+<void	keyword >
+<main	identifier	1 >
+<int	keyword >
+<a	identifier	2 >
+<b	identifier	3 >
+<c	identifier	4 >
+<float	keyword >
+<pi	identifier	5 >
+<=	assignment operator >
+<3.14	real constant >
+<c	identifier	4 >
+<=	assignment operator >
+<a	identifier	2 >
+<+	arithmetic operator >
+<b	identifier	3 >
+<b	identifier	3 >
+<=	assignment operator >
+<1	integer constant >
+<a	identifier	2 >
+<>=	unidentified operator >
+<b	identifier	3 >
+<printf	identifier	6 >
+<"Result: %d"	string constant >
+<c	identifier	4 >

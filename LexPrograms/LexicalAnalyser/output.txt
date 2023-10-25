@@ -1,0 +1,32 @@
+Keyword void
+ Keyword main
+
+
+	Keyword int
+ Identifier 0: num1
+
+	Keyword float
+ Identifier 1: result
+
+	
+	Identifier 2: printf
+String Constant "Enter the number: "
+
+	Identifier 3: scanf
+String Constant "%d"
+&Identifier 0: num1
+
+	
+	
+	Identifier 2: printf
+String Constant "The number: %d\n"
+Identifier 0: num1
+
+	
+	Identifier 1: result
+  =
+ Identifier 0: num1
+  /
+ Real Constant 2.5
+
+
