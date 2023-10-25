@@ -150,77 +150,74 @@ void main()
 			fprintf(output_file, "<'%c'\tcharacter constant >\n", ch);
 			getc(input_file);
 		}
-		else
+		else if(isdigit(ch))
 		{
-			if(isdigit(ch))
+			while(isdigit(ch) || ch == '.')
 			{
-				while(isdigit(ch) || ch == '.')
-				{
-					characters[c++]=ch;
-					ch=getc(input_file);
-				}
-				ungetc(ch,input_file);
-				
-				for(i=0;i<c;i++)
-				{
-					if(characters[i] == '.')
-					{
-						// printf("Real Constant: %s\n",characters);
-						fprintf(output_file,"<%s\treal constant >\n",characters);
-						flag=1;
-						break;
-					}
-				}
-				
-				if(flag==0)
-				{
-					// printf("Integer Constant: %s\n",characters);
-					fprintf(output_file,"<%s\tinteger constant >\n",characters);
-				}
-				else
-					flag=0;
-					
-				bzero(characters,sizeof(characters));
-				c=0;				
+				characters[c++]=ch;
+				ch=getc(input_file);
 			}
-			else // Operators
+			ungetc(ch,input_file);
+			
+			for(i=0;i<c;i++)
 			{
-				if (ch == -1)
-					break;
-
-				while(isOperator(ch))
+				if(characters[i] == '.')
 				{
-					// printf("Operator: %c\n", ch);
-					characters[c++]=ch;
-					ch=getc(input_file);
+					// printf("Real Constant: %s\n",characters);
+					fprintf(output_file,"<%s\treal constant >\n",characters);
+					flag=1;
+					break;
 				}
+			}
+			
+			if(flag==0)
+			{
+				// printf("Integer Constant: %s\n",characters);
+				fprintf(output_file,"<%s\tinteger constant >\n",characters);
+			}
+			else
+				flag=0;
+				
+			bzero(characters,sizeof(characters));
+			c=0;				
+		}
+		else // Operators
+		{
+			if (ch == -1) // EOF
+				break;
 
-				if (characters[0] != '\0') {
-					op=getOperator(characters);
+			while(isOperator(ch))
+			{
+				// printf("Operator: %c\n", ch);
+				characters[c++]=ch;
+				ch=getc(input_file);
+			}
 
-					if (op == 1) {
-						// printf("Arithmetic Operator: %s\n",characters);
-						fprintf(output_file,"<%s\tarithmetic operator >\n",characters);
-					} else if (op == 2) {
-						// printf("Logical Operator: %s\n",characters);
-						fprintf(output_file,"<%s\tlogical operator >\n",characters);
-					} else if (op == 3) {
-						// printf("Assignment Operator: %s\n",characters);
-						fprintf(output_file,"<%s\tassignment operator >\n",characters);
-					} else if (op == 4) {
-						// printf("Comparison Operator: %s\n",characters);
-						fprintf(output_file,"<%s\tcomparison operator >\n",characters);
-					} else {
-						// printf("Unidentified Operator: %s\n",characters);
-						fprintf(output_file,"<%s\tunidentified operator >\n",characters);
-					} 
+			if (characters[0] != '\0') {
+				op=getOperator(characters);
 
-					bzero(characters,sizeof(characters));
-					c=0;
-				}
+				if (op == 1) {
+					// printf("Arithmetic Operator: %s\n",characters);
+					fprintf(output_file,"<%s\tarithmetic operator >\n",characters);
+				} else if (op == 2) {
+					// printf("Logical Operator: %s\n",characters);
+					fprintf(output_file,"<%s\tlogical operator >\n",characters);
+				} else if (op == 3) {
+					// printf("Assignment Operator: %s\n",characters);
+					fprintf(output_file,"<%s\tassignment operator >\n",characters);
+				} else if (op == 4) {
+					// printf("Comparison Operator: %s\n",characters);
+					fprintf(output_file,"<%s\tcomparison operator >\n",characters);
+				} else {
+					// printf("Unidentified Operator: %s\n",characters);
+					fprintf(output_file,"<%s\tunidentified operator >\n",characters);
+				} 
 
-				ungetc(ch,input_file);
-			}					
+				bzero(characters,sizeof(characters));
+				c=0;
+			}
+
+			ungetc(ch,input_file);
 		}
 	}
 
