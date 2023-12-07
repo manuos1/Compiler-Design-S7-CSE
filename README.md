@@ -10,7 +10,7 @@
 ```
 lex main.l
 ```
-Now `lex.yy.c` file will be generated
+Now compile the `lex.yy.c` file generated, with -lfl flag
 ```
 gcc lex.yy.c -o main.out -lfl
 ```
@@ -23,7 +23,8 @@ gcc lex.yy.c -o main.out -lfl
 ```
 lex main.l
 ```
-Now `lex.yy.c` file will be generated
+`lex.yy.c` file will be generated
+Compile yacc file
 ```
 yacc -d main.y
 ```
